@@ -3,8 +3,7 @@
 
 // ── Startup ───────────────────────────────────────────────────────────────────
 
-// Spawn a terminal on startup (optional)
-spawn "fish"
+spawn-at-startup "fish"
 
 // ── Workspaces ────────────────────────────────────────────────────────────────
 
@@ -13,20 +12,22 @@ workspaces {
     rules {
         // Float foot terminal for all workspaces
         app-id "foot" {
-            spawn-at "2"
+            spawn-at-workspace 1;
         }
     }
 }
 
 // ── Layout ─────────────────────────────────────────────────────────────────────
 
-// Default spacing between windows (in pixels)
-spacing 10
+layout {
+    // Default spacing between windows (in pixels)
+    spacing 10
 
-// Default floating window dimensions
-floating window {
-    dimensions 60% 60%
-    position center
+    // Default floating window dimensions
+    floating window {
+        dimensions 60% 60%
+        position center
+    }
 }
 
 // ── Input ─────────────────────────────────────────────────────────────────────
@@ -53,77 +54,88 @@ input "type:keyboard" {
 
 // ── Bindings ──────────────────────────────────────────────────────────────────
 
-// Main modifier
-let main Mod4
+binds {
+    // ── Modifier ──
+    let main = Mod4
 
-// Move focus with main + arrow keys
-bind [main] ArrowLeft  focus-output left
-bind [main] ArrowRight focus-output right
-bind [main] ArrowUp    focus-output up
-bind [main] ArrowDown  focus-output down
+    // ── Focus output (monitor) ──
+    Mod+Left  { focus-output left; }
+    Mod+Right { focus-output right; }
+    Mod+Up    { focus-output up; }
+    Mod+Down  { focus-output down; }
 
-// Move window with main + shift + arrow
-bind [main Shift] ArrowLeft  move-window left
-bind [main Shift] ArrowRight move-window right
-bind [main Shift] ArrowUp    move-window up
-bind [main Shift] ArrowDown  move-window down
+    // ── Move window between outputs ──
+    Mod+Shift+Left  { move-window-to-output left; }
+    Mod+Shift+Right { move-window-to-output right; }
+    Mod+Shift+Up    { move-window-to-output up; }
+    Mod+Shift+Down  { move-window-to-output down; }
 
-// Switch workspaces
-bind [main]     1 workspace 0
-bind [main]     2 workspace 1
-bind [main]     3 workspace 2
-bind [main]     4 workspace 3
-bind [main]     5 workspace 4
-bind [main]     6 workspace 5
+    // ── Switch workspaces ──
+    Mod+1 { focus-workspace 0; }
+    Mod+2 { focus-workspace 1; }
+    Mod+3 { focus-workspace 2; }
+    Mod+4 { focus-workspace 3; }
+    Mod+5 { focus-workspace 4; }
+    Mod+6 { focus-workspace 5; }
 
-// Move window to workspace
-bind [main Shift] 1 move-window-to-workspace 0
-bind [main Shift] 2 move-window-to-workspace 1
-bind [main Shift] 3 move-window-to-workspace 2
-bind [main Shift] 4 move-window-to-workspace 3
-bind [main Shift] 5 move-window-to-workspace 4
-bind [main Shift] 6 move-window-to-workspace 5
+    // ── Move window to workspace ──
+    Mod+Shift+1 { move-window-to-workspace 0; }
+    Mod+Shift+2 { move-window-to-workspace 1; }
+    Mod+Shift+3 { move-window-to-workspace 2; }
+    Mod+Shift+4 { move-window-to-workspace 3; }
+    Mod+Shift+5 { move-window-to-workspace 4; }
+    Mod+Shift+6 { move-window-to-workspace 5; }
 
-// Floating window controls
-bind [main]     Space toggle-float
-bind [main]     F     fullscreen
-bind [main Shift] F   toggle-maximize
+    // ── Floating window controls ──
+    Mod+Space { toggle-windowed-floating; }
+    Mod+F     { fullscreen; }
+    Mod+Shift+F { toggle-maximize-to-edges; }
 
-// Close window
-bind [main]     Q     close
-bind [main Alt]  F4   close
+    // ── Close window ──
+    Mod+Q     { close; }
+    Mod+Alt+F4 { close; }
 
-// Spawn terminal (alacritty or foot)
-bind [main]     Return spawn "alacritty"
-// Or foot: spawn "foot"
-// Or wezterm: spawn "wezterm"
+    // ── Spawn terminal ──
+    Mod+Return { spawn "alacritty"; }
 
-// App launcher (dmenu replacement)
-bind [main]     D     spawn "dmenu_run -nb '#1a1a2e' -nf '#cdd6f4' -sb '#cba6f7' -sf '#1e1e2e'"
+    // ── App launcher (dmenu replacement — fuzzel) ──
+    Mod+D { spawn "fuzzel"; }
 
-// Screenshot
-bind [main]     S     spawn "spectacle -r"       // region
-bind [main Shift] S   spawn "spectacle -f"        // full
+    // ── Screenshot ──
+    Mod+S { spawn "grim"; }
+    Mod+Shift+S { spawn "grim"; "-o"; "$MAIN_OUTPUT"; }
 
-// Lock screen
-bind [main]     L     spawn "swaylock -f -C ~/.config/swaylock/config"
+    // ── Lock screen ──
+    Mod+L { spawn "swaylock"; "-f"; }
+}
 
 input "type:touchpad" {
-    tap-to-click true
-    disable-while-typing true
+    tap
+    disable-while-typing
 }
 
 // ── Window rules ───────────────────────────────────────────────────────────────
 
 // Float certain windows
-window-rule app-id="pavucontrol" float
-window-rule app-id="blueman-manager" float
-window-rule app-id="nm-connection-editor" float
-window-rule app-id="firefox" {
-    spawn-at 1
+window-rule {
+    match app-id="pavucontrol"
+    open-floating true
 }
-window-rule app-id="thunderbird" {
-    spawn-at 2
+window-rule {
+    match app-id="blueman-manager"
+    open-floating true
+}
+window-rule {
+    match app-id="nm-connection-editor"
+    open-floating true
+}
+window-rule {
+    match app-id="firefox"
+    spawn-at-workspace 0
+}
+window-rule {
+    match app-id="thunderbird"
+    spawn-at-workspace 1
 }
 
 // ── Looks ─────────────────────────────────────────────────────────────────────
