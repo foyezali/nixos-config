@@ -62,7 +62,7 @@
   # NVIDIA Quadro T2000 — for CUDA workloads only (not display)
   hardware.nvidia = {
     # Proprietary driver (required for CUDA)
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = pkgs.linuxPackages.nvidiaPackages.stable;
     open = false;
 
     # Power management — offload rendering to T2000 when needed
