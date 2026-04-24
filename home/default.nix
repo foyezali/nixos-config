@@ -93,7 +93,6 @@
       pull.rebase = true;
       rerere.enabled = true;
       diff.algorithm = "histogram";
-      pager = "delta";
     };
     aliases = {
       co = "checkout";
