@@ -51,21 +51,35 @@
   ];
 
   # ── GPU ─────────────────────────────────────────────────────────────────────
-  # Uncomment your GPU section:
-  
-  # Intel (most common for laptops)
+  # ThinkPad P1 Gen 3: Intel UHD Graphics (iGPU) + NVIDIA Quadro T2000 (dGPU)
+
   services.xserver.enable = true;
+
+  # Intel iGPU — used for display output
   services.xserver.videoDrivers = [ "intel" ];
   hardware.intel.opengl.enable = true;
 
-  # AMD
-  # services.xserver.videoDrivers = [ "amdgpu" ];
-  # hardware.opengl.enable = true;
+  # NVIDIA Quadro T2000 — for CUDA workloads only (not display)
+  hardware.nvidia = {
+    # Proprietary driver (required for CUDA)
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    open = false;
 
-  # NVIDIA (needs more config)
-  # services.xserver.videoDrivers = [ "nvidia" ];
-  # hardware.nvidia.modesetting.enable = true;
-  # hardware.nvidia.powerManagement.enable = true;
+    # Power management — offload rendering to T2000 when needed
+    prime = {
+      offload = {
+        enable = true;
+        clientBusId = "PCI:0:2:0";  # Intel iGPU
+        serverBusId = "PCI:1:0:0";  # NVIDIA T2000
+      };
+      # Use T2000 for everything (dGPU only, no iGPU)
+      # sync.enable = true;  # for PRIME render offload with display
+    };
+
+    # Enable modesetting (required for PRIME)
+    modesetting.enable = true;
+    powerManagement.enable = true;
+  };
 
   # ── Niri (Wayland compositor) ───────────────────────────────────────────────
   programs.niri.enable = true;
