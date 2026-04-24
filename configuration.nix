@@ -72,8 +72,7 @@
 
   # ── Fonts ───────────────────────────────────────────────────────────────────
   fonts.packages = with pkgs; [
-    fontconfig
-    (nerdfonts.override { fonts = [ "JetBrains" "FiraCode" "NerdFontsSymbolsOnly" ]; })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
   ];
 
   # ── Locale ──────────────────────────────────────────────────────────────────
@@ -101,9 +100,7 @@
     mkinitcpio         # if you need Arch compat tools
   ];
 
-  # ── Sound ───────────────────────────────────────────────────────────────────
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;  # use pipewire instead
+  # ── Sound (Pipewire) ────────────────────────────────────────────────────────
   services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -118,8 +115,7 @@
   hardware.bluetooth.enable = true;
 
   # ── Display ──────────────────────────────────────────────────────────────────
-  # Laptop screen — adjust to your actual resolution
-  services.xserver.videoMode = "1920x1080@60";
+  # Laptop screen resolution detected automatically. Niri handles its own display config.
 
   # ── Power (ThinkPad P1 Gen 3) ────────────────────────────────────────────────
   services.tlp = {
