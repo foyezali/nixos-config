@@ -19,8 +19,7 @@
     starship           # prompt
     zellij             # terminal multiplexer (like tmux but better)
     # Editors — neovim is in system packages
-    # Browser
-    firefox
+    # Browser — firefox managed by programs.firefox
     # Media
     mpv
     imv                # image viewer
