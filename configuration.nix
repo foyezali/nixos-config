@@ -65,11 +65,6 @@
     open = false;
     modesetting.enable = true;
     powerManagement.enable = true;
-    prime = {
-      offload.enable = true;
-      offload.clientBusId = "PCI:0:2:0";
-      offload.serverBusId = "PCI:1:0:0";
-    };
   };
 
   # ── Niri (Wayland compositor) ───────────────────────────────────────────────
