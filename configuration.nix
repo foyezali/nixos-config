@@ -17,7 +17,7 @@
       "input"        # input devices
       "networkmanager" # network control
     ];
-    # If you use fingerprint reader, add: "input"
+    # password set imperatively — change with `passwd jj`
   };
 
   # ── Boot ───────────────────────────────────────────────────────────────────
@@ -32,7 +32,7 @@
     fsType = "vfat";
   };
 
-  # Root — nvme0n1p4 (was nvme1n1p4 in original Arch labeling)
+  # Root — nvme0n1p4
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/453ef787-4e32-42f5-bb9f-3570531f57dc";
     fsType = "ext4";
@@ -51,7 +51,6 @@
 
   # ── GPU ─────────────────────────────────────────────────────────────────────
   # ThinkPad P1 Gen 3: Intel UHD Graphics (iGPU) + NVIDIA Quadro T2000 (dGPU)
-
   services.xserver.enable = true;
 
   # Intel iGPU — used for display output
@@ -59,7 +58,6 @@
   hardware.graphics.enable = true;
 
   # NVIDIA Quadro T2000 — for CUDA workloads only (not display)
-  # Let NixOS pick the right driver version automatically
   hardware.nvidia = {
     open = false;
     modesetting.enable = true;
@@ -68,6 +66,37 @@
 
   # ── Niri (Wayland compositor) ───────────────────────────────────────────────
   programs.niri.enable = true;
+
+  # ── Display Manager (greetd + niri) ────────────────────────────────────────
+  services.greetd = {
+    enable = true;
+    settings = {
+      # Auto-login as jj — niri starts automatically
+      initial_session = {
+        command = "${pkgs.niri}/bin/niri";
+        user = "jj";
+      };
+      # Fallback if initial_session fails
+      default_session = {
+        command = "${pkgs.niri}/bin/niri";
+        user = "jj";
+      };
+    };
+  };
+
+  # ── XDG Portals (needed for Wayland apps) ──────────────────────────────────
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    config.common.default = [ "gtk" ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk      # GTK file picker, etc.
+      xdg-desktop-portal-wlr      # screen sharing
+    ];
+  };
+
+  # ── Polkit (needed for authentication in Wayland) ────────────────────────────
+  security.polkit.enable = true;
 
   # ── Fonts ───────────────────────────────────────────────────────────────────
   fonts.packages = with pkgs; [ ];
@@ -95,6 +124,7 @@
     pciutils
     usbutils
     neovim
+    niri
   ];
 
   # ── Sound (Pipewire) ────────────────────────────────────────────────────────
@@ -111,30 +141,7 @@
   # ── Bluetooth ────────────────────────────────────────────────────────────────
   hardware.bluetooth.enable = true;
 
-  # ── Display ──────────────────────────────────────────────────────────────────
-  # Laptop screen resolution detected automatically. Niri handles its own display config.
-
-  # ── Power (ThinkPad P1 Gen 3) ────────────────────────────────────────────────
-  services.tlp = {
-    enable = true;
-    settings = {
-      # CPU
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-      # ThinkPad P1 Gen 3 — Intel 10th Gen + Quadro
-      # Adjust if you have the RTX 5000 variant
-      RUNTIME_PM_DRIVER_BLACKLIST = "nvidia";
-      USB_AUTOSUSPEND = true;
-      RESTORE_DEVICE_STATE_ON_STARTUP = true;
-
-      # Battery care ( ThinkPad rapid charge — adjust to your preference)
-      START_CHARGE_THRESH_BAT0 = 75;
-      STOP_CHARGE_THRESH_BAT0 = 80;
-    };
-  };
-
-  # ── Nix ──────────────────────────────────────────────────────────────────────
+  # ── Nix ─────────────────────────────────────────────────────────────────────
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nix.settings.auto-optimise-store = true;
   programs.nix-ld.enable = true;
