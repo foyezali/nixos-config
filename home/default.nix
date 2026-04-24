@@ -71,9 +71,9 @@
     enable = true;
     interactiveShellInit = ''
       # aliases
-      alias ls = exa
-      alias ll = 'exa -l'
-      alias la = 'exa -la'
+      alias ls = eza
+      alias ll = 'eza -l'
+      alias la = 'eza -la'
       alias cat = bat
       alias find = 'fd'
       alias top = btop
@@ -86,24 +86,21 @@
   # ── Git ──────────────────────────────────────────────────────────────────────
   programs.git = {
     enable = true;
-    userName = "foyez";
-    userEmail = "foyez@protonmail.com";  # replace with your email
-    aliases = {
-      co = "checkout";
-      br = "branch";
-      st = "status";
-      lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-      unstage = "reset HEAD --";
-      undo = "reset --soft HEAD~1";
-    };
-    extraConfig = {
+    settings = {
+      user.name = "foyez";
+      user.email = "foyez@protonmail.com";
       init.defaultBranch = "main";
       pull.rebase = true;
       rerere.enabled = true;
       diff.algorithm = "histogram";
-      core.pager = "delta";
-      interactive.diffFilter = "delta --color-only";
-      delta.features = "side-by-side";
+      pager = "delta";
+    };
+    aliases = {
+      co = "checkout";
+      br = "branch";
+      st = "status";
+      unstage = "reset HEAD --";
+      undo = "reset --soft HEAD~1";
     };
   };
 

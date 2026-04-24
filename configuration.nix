@@ -93,7 +93,7 @@
     ripgrep
     fd
     bat
-    exa
+    eza
     zoxide
     procps
     pciutils
