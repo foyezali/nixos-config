@@ -88,17 +88,16 @@
     vim
     htop
     btop
-    fish               # shell (switch from zsh if you prefer, both work)
+    fish
     fzf
     ripgrep
     fd
     bat
     exa
     zoxide
-    procps             # ps, top, etc.
-    pciutils           # lspci
-    usbutils           # lsusb
-    mkinitcpio         # if you need Arch compat tools
+    procps
+    pciutils
+    usbutils
   ];
 
   # ── Sound (Pipewire) ────────────────────────────────────────────────────────

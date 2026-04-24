@@ -16,7 +16,6 @@
     gh
     lazygit
     delta              # better git diffs
-    jujutsu            # distributed VCS (like git but better)
     starship           # prompt
     zellij             # terminal multiplexer (like tmux but better)
     # Editors
@@ -24,17 +23,14 @@
     vscode
     # Browser
     firefox
-    librewolf
     # Media
     mpv
     imv                # image viewer
     zathura            # PDF viewer
     # Utils
     brightnessctl      # backlight control
-    volumeicon         # tray volume
-    networkmanager_dmenu
+    networkmanagerapplet  # tray network manager
     pass               # password manager
-    otp-cli
     bitwarden-cli
     # System info
     fastfetch
@@ -43,7 +39,6 @@
     # Compression
     unzip
     p7zip
-    ripgrep
   ];
 
   # ── Programs ─────────────────────────────────────────────────────────────────
