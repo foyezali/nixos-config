@@ -26,25 +26,25 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   # ── Filesystems ─────────────────────────────────────────────────────────────
-  # EFI — shared with Windows (on nvme0n1p1)
+  # EFI — shared with Windows (on nvme1n1p1)
   fileSystems."/boot/efi" = {
     device = "/dev/disk/by-uuid/A12C-8640";
     fsType = "vfat";
   };
 
-  # Root — fresh ext4, was Arch root
+  # Root — nvme0n1p4 (was nvme1n1p4 in original Arch labeling)
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e28ff2a4-a15c-4f87-b38d-edd57a810489";
+    device = "/dev/disk/by-uuid/453ef787-4e32-42f5-bb9f-3570531f57dc";
     fsType = "ext4";
   };
 
-  # Home — keep existing, your data
+  # Home — nvme0n1p3
   fileSystems."/home" = {
     device = "/dev/disk/by-uuid/32023d65-15c6-4acb-836f-5ceae9802ae9";
     fsType = "ext4";
   };
 
-  # Swap
+  # Swap — nvme0n1p2
   swapDevices = [
     { device = "/dev/disk/by-uuid/3b9c060f-4660-460b-a152-8b20f7ae311c"; }
   ];
