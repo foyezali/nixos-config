@@ -13,7 +13,6 @@
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
-
       modules = [
         ./configuration.nix
         home-manager.nixosModules.home-manager
@@ -22,6 +21,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.jj = import ./home;
           home-manager.extraSpecialArgs = { inherit inputs; };
+          nixpkgs.config.allowUnfree = true;
         }
       ];
     };
