@@ -74,7 +74,6 @@
   # ── Fish shell ───────────────────────────────────────────────────────────────
   programs.fish = {
     enable = true;
-    enableCompletions = true;
     interactiveShellInit = ''
       # aliases
       alias ls = exa
