@@ -72,9 +72,7 @@
   programs.niri.enable = true;
 
   # ── Fonts ───────────────────────────────────────────────────────────────────
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
-  ];
+  fonts.packages = with pkgs; [ ];
 
   # ── Locale ──────────────────────────────────────────────────────────────────
   i18n.defaultLocale = "en_GB.UTF-8";
