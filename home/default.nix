@@ -75,7 +75,6 @@
   programs.fish = {
     enable = true;
     enableCompletions = true;
-    enableFishIndicators = true;
     interactiveShellInit = ''
       # aliases
       alias ls = exa
@@ -88,17 +87,6 @@
       # zoxide for smarter cd
       zoxide init fish | source
     '';
-    plugins = with pkgs.fishPlugins; [
-      {
-        name = "fish-completion";
-        src = pkgs.fetchFromGitHub {
-          owner = "nick受力";
-          repo = "fish-completion";
-          rev = "master";
-          sha256 = "0000000000000000000000000000000000000000000000000000";
-        };
-      }
-    ];
   };
 
   # ── Git ──────────────────────────────────────────────────────────────────────
@@ -129,12 +117,8 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    withPython3 = true;
-    withNodeJs = true;
     vimAlias = true;
     extraConfig = ''
-      " Your existing neovim config — paste from ~/.config/nvim/init.lua or init.vim
-      " For now, a minimal starter:
       set hidden
       set number
       set relativenumber
@@ -145,11 +129,6 @@
       set splitright
       set splitbelow
       set encoding=utf-8
-
-      " Add your ml4w dotfiles config here or import it:
-      " lua << EOF
-      "   -- your ml4w config
-      " EOF
     '';
   };
 
@@ -166,12 +145,6 @@
   programs.zellij = {
     enable = true;
     enableFishIntegration = true;
-    settings = {
-      default_shell = "fish";
-      copy_command = "xclip -selection clipboard";
-      paste_command = "xclip -selection clipboard -o";
-      scroll_buffer_size = 10000;
-    };
   };
 
   # ── Lazygit ───────────────────────────────────────────────────────────────────
@@ -180,8 +153,8 @@
   };
 
   # ── Niri ─────────────────────────────────────────────────────────────────────
-  # Link your niri config (KDL format) — create this file separately
-  # home.file.".config/niri/config.kdl".source = ./niri/config.kdl;
+  # Link your niri config (KDL format)
+  home.file.".config/niri/config.kdl".source = ./niri/config.kdl;
 
   # ── Waybar ────────────────────────────────────────────────────────────────────
   # If you want a status bar (niri has a built-in minimal bar, waybar is fuller)
