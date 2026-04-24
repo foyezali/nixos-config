@@ -57,28 +57,19 @@
 
   # Intel iGPU — used for display output
   services.xserver.videoDrivers = [ "intel" ];
-  hardware.intel.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   # NVIDIA Quadro T2000 — for CUDA workloads only (not display)
+  # Let NixOS pick the right driver version automatically
   hardware.nvidia = {
-    # Proprietary driver (required for CUDA)
-    package = pkgs.linuxPackages.nvidiaPackages.stable;
     open = false;
-
-    # Power management — offload rendering to T2000 when needed
-    prime = {
-      offload = {
-        enable = true;
-        clientBusId = "PCI:0:2:0";  # Intel iGPU
-        serverBusId = "PCI:1:0:0";  # NVIDIA T2000
-      };
-      # Use T2000 for everything (dGPU only, no iGPU)
-      # sync.enable = true;  # for PRIME render offload with display
-    };
-
-    # Enable modesetting (required for PRIME)
     modesetting.enable = true;
     powerManagement.enable = true;
+    prime = {
+      offload.enable = true;
+      offload.clientBusId = "PCI:0:2:0";
+      offload.serverBusId = "PCI:1:0:0";
+    };
   };
 
   # ── Niri (Wayland compositor) ───────────────────────────────────────────────
