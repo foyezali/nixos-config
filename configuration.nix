@@ -24,6 +24,7 @@
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/nvme1n1";    # second NVMe
   boot.loader.grub.useOSProber = true;         # detect Windows on nvme0n1
+  boot.loader.grub.efiSupport = true;
   boot.loader.grub.efiInstallAsRemovable = true;
 
   # ── Filesystems ─────────────────────────────────────────────────────────────
