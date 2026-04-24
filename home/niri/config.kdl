@@ -141,12 +141,12 @@ cursor {
 resize-area 32
 
 // Show invisible windows in the active workspace
-show-hidden-in-activeorkspace true
+show-hidden-in-active-workspace true
 
 // ── Output ─────────────────────────────────────────────────────────────────────
 
 // Your laptop screen — adjust resolution
-output "DP-1" {
+output "eDP-1" {
     mode "1920x1080@60"
     position x=0 y=0
 }
