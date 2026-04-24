@@ -18,9 +18,7 @@
     delta              # better git diffs
     starship           # prompt
     zellij             # terminal multiplexer (like tmux but better)
-    # Editors
-    neovim
-    vscode
+    # Editors — neovim is in system packages
     # Browser
     firefox
     # Media

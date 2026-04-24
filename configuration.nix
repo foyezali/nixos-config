@@ -96,6 +96,7 @@
     procps
     pciutils
     usbutils
+    neovim
   ];
 
   # ── Sound (Pipewire) ────────────────────────────────────────────────────────
