@@ -43,7 +43,6 @@
   # ── Starship prompt ──────────────────────────────────────────────────────────
   programs.starship = {
     enable = true;
-    enableFishIntegration = true;
     settings = {
       add_newline = false;
       command_timeout = 500;
@@ -67,13 +66,13 @@
   programs.fish = {
     enable = true;
     interactiveShellInit = ''
-      # aliases
-      alias ls = eza
-      alias ll = 'eza -l'
-      alias la = 'eza -la'
-      alias cat = bat
-      alias find = 'fd'
-      alias top = btop
+      # aliases (fish uses space-separated syntax, not =)
+      alias ls eza
+      alias ll 'eza -l'
+      alias la 'eza -la'
+      alias cat bat
+      alias find fd
+      alias top btop
 
       # zoxide for smarter cd
       zoxide init fish | source
@@ -104,9 +103,7 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true;
-    vimAlias = true;
-    withPython3 = false;
-    withRuby = false;
+    viAlias = true;
     extraConfig = ''
       set hidden
       set number
@@ -133,7 +130,6 @@
   # ── Zellij ────────────────────────────────────────────────────────────────────
   programs.zellij = {
     enable = true;
-    enableFishIntegration = true;
   };
 
   # ── Lazygit ───────────────────────────────────────────────────────────────────

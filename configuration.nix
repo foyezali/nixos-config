@@ -55,13 +55,12 @@
 
   # Intel iGPU — used for display output
   services.xserver.videoDrivers = [ "intel" ];
-  hardware.graphics.enable = true;
 
   # NVIDIA Quadro T2000 — for CUDA workloads only (not display)
   hardware.nvidia = {
     open = false;
     modesetting.enable = true;
-    powerManagement.enable = true;
+    prime.offload.enable = true;
   };
 
   # ── Niri (Wayland compositor) ───────────────────────────────────────────────
@@ -124,7 +123,6 @@
     pciutils
     usbutils
     neovim
-    niri
   ];
 
   # ── Sound (Pipewire) ────────────────────────────────────────────────────────
