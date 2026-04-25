@@ -105,7 +105,7 @@
   # ── Fonts ───────────────────────────────────────────────────────────────────
   fonts.packages = with pkgs; [
     fontconfig
-    LiberationFonts
+    liberation-fonts
     noto-fonts
     noto-fonts-extra
     (hack-font.override { otbFeatures = { }; })
