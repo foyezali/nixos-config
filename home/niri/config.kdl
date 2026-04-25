@@ -4,11 +4,11 @@
 // ── Workspaces ────────────────────────────────────────────────────────────────
 window-rule {
     match app-id="firefox"
-    spawn-at-workspace 0
+    open-on-workspace "0"
 }
 window-rule {
     match app-id="thunderbird"
-    spawn-at-workspace 1
+    open-on-workspace "1"
 }
 
 // ── Input ─────────────────────────────────────────────────────────────────────
@@ -19,7 +19,7 @@ input {
         }
     }
     // Disable focus-follows-mouse (keyboard-driven workflow)
-    focus-follows-mouse false
+    // Omitting focus-follows-mouse disables it (it's a flag)
 }
 
 input {
