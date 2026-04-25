@@ -2,8 +2,6 @@
 // Docs: https://niri-wm.github.io/niri/Configuration:-Introduction
 
 // ── Workspaces ────────────────────────────────────────────────────────────────
-// niri starts with 1 workspace by default — no explicit workspace declaration needed
-// App-specific workspace rules:
 window-rule {
     match app-id="firefox"
     spawn-at-workspace 0
@@ -18,18 +16,15 @@ layout {
     spacing 10
 
     floating window {
-        // Reasonable floating window size in pixels (was: 60x60 which is microscopic)
         dimensions 1152 648
         position center
     }
 }
 
 // ── Input ─────────────────────────────────────────────────────────────────────
-// Cursor follows focus but doesn't warp to every click
 focus-under-mouse false
 warp cursor-on-focus true
 
-// ── Keyboard ──────────────────────────────────────────────────────────────────
 input {
     keyboard {
         xkb {
@@ -38,7 +33,6 @@ input {
     }
 }
 
-// ── Touchpad ──────────────────────────────────────────────────────────────────
 input {
     touchpad {
         tap
@@ -48,19 +42,19 @@ input {
 
 // ── Bindings ──────────────────────────────────────────────────────────────────
 binds {
-    // ── Focus output (monitor) ──
-    Mod+Left  { focus-output left; }
-    Mod+Right { focus-output right; }
-    Mod+Up    { focus-output up; }
-    Mod+Down  { focus-output down; }
+    // Focus: column = left/right, window = up/down within column
+    Mod+Left     { focus-column-left; }
+    Mod+Right    { focus-column-right; }
+    Mod+Down     { focus-window-down; }
+    Mod+Up       { focus-window-up; }
 
-    // ── Move window between outputs ──
-    Mod+Shift+Left  { move-window-to-output left; }
-    Mod+Shift+Right { move-window-to-output right; }
-    Mod+Shift+Up    { move-window-to-output up; }
-    Mod+Shift+Down  { move-window-to-output down; }
+    // Move window: between columns and within column
+    Mod+Shift+Left     { move-window-to-column-left; }
+    Mod+Shift+Right    { move-window-to-column-right; }
+    Mod+Shift+Down     { move-window-to-window-down; }
+    Mod+Shift+Up       { move-window-to-window-up; }
 
-    // ── Switch workspaces (1-indexed internally, 0-indexed in config) ──
+    // Switch workspaces
     Mod+1 { focus-workspace 0; }
     Mod+2 { focus-workspace 1; }
     Mod+3 { focus-workspace 2; }
@@ -68,7 +62,7 @@ binds {
     Mod+5 { focus-workspace 4; }
     Mod+6 { focus-workspace 5; }
 
-    // ── Move window to workspace ──
+    // Move window to workspace
     Mod+Shift+1 { move-window-to-workspace 0; }
     Mod+Shift+2 { move-window-to-workspace 1; }
     Mod+Shift+3 { move-window-to-workspace 2; }
@@ -76,25 +70,25 @@ binds {
     Mod+Shift+5 { move-window-to-workspace 4; }
     Mod+Shift+6 { move-window-to-workspace 5; }
 
-    // ── Floating / fullscreen ──
+    // Floating / fullscreen
     Mod+Space     { toggle-windowed-floating; }
     Mod+F         { fullscreen; }
     Mod+Shift+F   { toggle-maximize-to-edges; }
 
-    // ── Close window ──
+    // Close
     Mod+Q         { close; }
 
-    // ── Spawn terminal ──
+    // Spawn terminal
     Mod+Return    { spawn "alacritty"; }
 
-    // ── App launcher ──
+    // App launcher
     Mod+D         { spawn "wofi"; }
 
-    // ── Screenshot ( grim = full screen, grim -g = selection ) ──
+    // Screenshot
     Mod+S         { spawn "grim"; }
     Mod+Shift+S   { spawn "grim"; "-g"; }
 
-    // ── Lock screen ──
+    // Lock screen
     Mod+L         { spawn "waylock"; "-f"; }
 }
 
@@ -124,7 +118,6 @@ resize-area 32
 show-hidden-in-active-workspace true
 
 // ── Output ─────────────────────────────────────────────────────────────────────
-// ThinkPad P1 Gen 3 internal display
 output "eDP-1" {
     mode "1920x1080@60"
     position x=0 y=0
