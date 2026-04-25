@@ -108,6 +108,9 @@
     ];
   };
 
+  # ── D-Bus ─────────────────────────────────────────────────────────────────────
+  services.dbus.enable = true;
+
   # ── Polkit (needed for authentication in Wayland) ────────────────────────────
   security.polkit.enable = true;
 
