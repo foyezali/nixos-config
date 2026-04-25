@@ -33,10 +33,9 @@ input {
     }
     touchpad {
         tap
-        disable-while-typing
+        dwt
     }
     mouse {
-        // Warp cursor to focused window center
         warp-mouse-to-focus
     }
 }
@@ -79,8 +78,8 @@ binds {
     // ── Window management ───────────────────────────────────────────────────
     Mod+Space     { toggle-window-floating; }
     Mod+F         { fullscreen-window; }
-    Mod+Shift+F   { toggle-maximize-to-edges; }
-    Mod+Q         { close; }
+    Mod+Shift+F   { maximize-window-to-edges; }
+    Mod+Q         { close-window; }
 
     // ── Spawn apps ───────────────────────────────────────────────────────────
     Mod+Return    { spawn "alacritty"; }
