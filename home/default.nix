@@ -1,7 +1,9 @@
 { inputs, pkgs, lib, config, ... }:
 
 {
-  imports = [ ];
+  imports = [
+    (import "${inputs.noctalia}/nix/home-module.nix")
+  ];
 
   home.username = "jj";
   home.homeDirectory = "/home/jj";
@@ -37,6 +39,25 @@
     unzip
     p7zip
   ];
+
+  # ── Noctalia Shell ─────────────────────────────────────────────────────────
+  programs.noctalia-shell = {
+    enable = true;
+    package = inputs.noctalia.packages.x86_64-linux.default;
+    settings = {
+      # Let Noctalia pick up wallpaper colors automatically
+      colorSchemes = {
+        useWallpaperColors = true;
+        darkMode = true;
+      };
+      # Bar at top
+      bar = {
+        position = "top";
+        floating = false;
+        backgroundOpacity = 0.9;
+      };
+    };
+  };
 
   # ── Programs ─────────────────────────────────────────────────────────────────
 
@@ -140,26 +161,6 @@
   # ── Niri ─────────────────────────────────────────────────────────────────────
   # Link your niri config (KDL format)
   home.file.".config/niri/config.kdl".source = ./niri/config.kdl;
-
-  # ── Waybar ────────────────────────────────────────────────────────────────────
-  # If you want a status bar (niri has a built-in minimal bar, waybar is fuller)
-  # programs.waybar = {
-  #   enable = true;
-  #   settings = {
-  #     "wlr/workspaces" = { };
-  #     "river/tags" = { };
-  #     "custom/media" = { };
-  #     "river/sndio" = { };
-  #     "river/battery" = { };
-  #     "river/keyboard" = { };
-  #     "tray" = { };
-  #     "clock" = { };
-  #   };
-  # };
-
-  # ── Dotfiles ─────────────────────────────────────────────────────────────────
-  # If your dotfiles are in a git repo:
-  # home.file.".dotfiles".source = /path/to/your/dotfiles;
 
   # ── Home Manager ─────────────────────────────────────────────────────────────
   home.stateVersion = "25.05";
