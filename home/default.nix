@@ -90,7 +90,7 @@
       rerere.enabled = true;
       diff.algorithm = "histogram";
     };
-    aliases = {
+    settings.alias = {
       co = "checkout";
       br = "branch";
       st = "status";

@@ -123,6 +123,11 @@
     pciutils
     usbutils
     neovim
+    alacritty
+    wofi
+    grim
+    slurp
+    waylock
   ];
 
   # ── Sound (Pipewire) ────────────────────────────────────────────────────────

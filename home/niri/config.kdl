@@ -1,34 +1,11 @@
-// Niri config — ThinkPad P1 Gen 3
-// Docs: https://niri-wm.github.io/niri/Configuration:-Introduction
-
-// ── Window rules ───────────────────────────────────────────────────────────────
-window-rule {
-    match app-id="firefox"
-    open-on-workspace "0"
-}
-window-rule {
-    match app-id="thunderbird"
-    open-on-workspace "1"
-}
-window-rule {
-    match app-id="pavucontrol"
-    open-floating true
-}
-window-rule {
-    match app-id="blueman-manager"
-    open-floating true
-}
-window-rule {
-    match app-id="nm-connection-editor"
-    open-floating true
-}
+// Minimal niri config — ThinkPad P1 Gen 3
+// Only what's needed to boot and work
 
 // ── Input ─────────────────────────────────────────────────────────────────────
-// All input devices in ONE input block
 input {
     keyboard {
         xkb {
-            options "caps:escape,compose:menu,numlock:on"
+            options "caps:escape,compose:menu"
         }
     }
     touchpad {
@@ -44,54 +21,39 @@ layout {
 
 // ── Bindings ──────────────────────────────────────────────────────────────────
 binds {
-    // ── Focus: columns and windows ──────────────────────────────────────────
-    Mod+Left     { focus-column-left; }
-    Mod+Right    { focus-column-right; }
-    Mod+Down     { focus-window-down; }
-    Mod+Up       { focus-window-up; }
-
-    // ── Move: columns and windows ───────────────────────────────────────────
-    Mod+Ctrl+Left  { move-column-left; }
-    Mod+Ctrl+Right { move-column-right; }
-    Mod+Ctrl+Down  { move-window-down; }
-    Mod+Ctrl+Up    { move-window-up; }
-
-    // ── Switch workspaces ───────────────────────────────────────────────────
-    Mod+1 { focus-workspace "0"; }
-    Mod+2 { focus-workspace "1"; }
-    Mod+3 { focus-workspace "2"; }
-    Mod+4 { focus-workspace "3"; }
-    Mod+5 { focus-workspace "4"; }
-    Mod+6 { focus-workspace "5"; }
-
-    // ── Move window to workspace ─────────────────────────────────────────────
-    Mod+Ctrl+1 { move-window-to-workspace "0"; }
-    Mod+Ctrl+2 { move-window-to-workspace "1"; }
-    Mod+Ctrl+3 { move-window-to-workspace "2"; }
-    Mod+Ctrl+4 { move-window-to-workspace "3"; }
-    Mod+Ctrl+5 { move-window-to-workspace "4"; }
-    Mod+Ctrl+6 { move-window-to-workspace "5"; }
-
-    // ── Window management ───────────────────────────────────────────────────
-    Mod+Space     { toggle-window-floating; }
-    Mod+F         { fullscreen-window; }
-    Mod+Shift+F   { maximize-window-to-edges; }
-    Mod+Q         { close-window; }
-
-    // ── Spawn apps ───────────────────────────────────────────────────────────
+    // Terminal — alacritty
     Mod+Return    { spawn "alacritty"; }
+
+    // App launcher
     Mod+D         { spawn "wofi"; }
 
-    // ── Screenshot ──────────────────────────────────────────────────────────
-    Mod+S         { spawn "grim"; }
-    Mod+Shift+S   { spawn "grim" "-g"; }
+    // Window management
+    Mod+Q         { close-window; }
+    Mod+Space     { toggle-window-floating; }
+    Mod+F         { fullscreen-window; }
 
-    // ── Lock screen ─────────────────────────────────────────────────────────
-    Mod+L         { spawn "waylock" "-f"; }
+    // Focus columns and windows
+    Mod+Left      { focus-column-left; }
+    Mod+Right     { focus-column-right; }
+    Mod+Down      { focus-window-down; }
+    Mod+Up        { focus-window-up; }
+
+    // Workspaces
+    Mod+1         { focus-workspace "0"; }
+    Mod+2         { focus-workspace "1"; }
+    Mod+3         { focus-workspace "2"; }
+    Mod+4         { focus-workspace "3"; }
+    Mod+5         { focus-workspace "4"; }
+    Mod+6         { focus-workspace "5"; }
+
+    // Screenshot
+    Mod+S         { spawn "grim"; "-g"; }
+
+    // Lock
+    Mod+L         { spawn "waylock"; "-f"; }
 }
 
 // ── Output ─────────────────────────────────────────────────────────────────────
 output "eDP-1" {
     mode "1920x1080@60"
-    position x=0 y=0
 }
