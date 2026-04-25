@@ -40,15 +40,11 @@ warp cursor-on-focus true
 
 // ── Keyboard ──────────────────────────────────────────────────────────────────
 
-input "type:keyboard" {
-    // xkb options
-    xkb-options {
-        // Caps Escape
-        add "caps:escape"
-        // Enable compose key on menu/super key
-        add "compose:menu"
-        // Enable numlock
-        add "numlock:on"
+input {
+    keyboard {
+        xkb {
+            options "caps:escape,compose:menu,numlock:on"
+        }
     }
 }
 
@@ -143,8 +139,8 @@ window-rule {
 // Cursor
 cursor {
     hide-when-typing true
-    normal-color "#cdd6f4"
-    pointer-color "#cba6f7"
+    active-color "#cdd6f4"
+    inactive-color "#cba6f7"
 }
 
 // ── Misc ───────────────────────────────────────────────────────────────────────
