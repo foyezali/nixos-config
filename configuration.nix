@@ -71,6 +71,15 @@
   # ── Niri (Wayland compositor) ───────────────────────────────────────────────
   programs.niri.enable = true;
 
+  # ── GPU environment variables ────────────────────────────────────────────────
+  # Force software renderer as fallback when GPU rendering fails.
+  # ThinkPad P1 Gen 3: Intel UHD (iGPU) + NVIDIA Quadro T2000 (dGPU).
+  # Proprietary NVIDIA drivers don't support Wayland compositing natively,
+  # so we rely on Intel iGPU for display output via modesetting.
+  environment.sessionVariables = {
+    WLR_RENDERER = "sw";
+  };
+
   # ── Display Manager (greetd + niri) ────────────────────────────────────────
   services.greetd = {
     enable = true;
