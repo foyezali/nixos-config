@@ -65,7 +65,10 @@ binds {
 }
 
 // ── Startup ───────────────────────────────────────────────────────────────────
-spawn-at-startup "noctalia-shell"
+// noctalia-shell is primarily started via systemd user service
+// (services.noctalia-shell). The spawn here is a safety net in case
+// systemd hasn't started it yet when niri finishes initializing.
+// spawn-at-startup "noctalia-shell";  // DISABLED — let systemd handle it
 
 // ── Output ─────────────────────────────────────────────────────────────────────
 output "eDP-1" {

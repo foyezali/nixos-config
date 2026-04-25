@@ -2,7 +2,7 @@
 
 {
   imports = [
-    (import "${inputs.noctalia}/nix/home-module.nix")
+    inputs.noctalia.homeModules.default
   ];
 
   home.username = "jj";
@@ -43,7 +43,6 @@
   # ── Noctalia Shell ─────────────────────────────────────────────────────────
   programs.noctalia-shell = {
     enable = true;
-    package = inputs.noctalia.packages.x86_64-linux.default;
     settings = {
       # Let Noctalia pick up wallpaper colors automatically
       colorSchemes = {

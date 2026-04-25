@@ -16,21 +16,35 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.noctalia-qs.follows = "noctalia-qs";
     };
+    nixpkgs-cachix = {
+      url = "github:nixos/nixpkgs-cachix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, noctalia, ... }@inputs: {
+  outputs = { nixpkgs, home-manager, noctalia, nixpkgs-cachix, ... }@inputs: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
         home-manager.nixosModules.home-manager
+        noctalia.nixosModules.default
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.jj = import ./home;
           home-manager.extraSpecialArgs = { inherit inputs; };
           nixpkgs.config.allowUnfree = true;
+          # Noctalia binary cache — skip compiling noctalia from source
+          nix.settings.substituters = [
+            "https://noctalia.cachix.org"
+            "https://nixpkgs.cachix.org"
+          ];
+          nix.settings.trusted-public-keys = [
+            "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+            "nixpkgs.cachix.org-1:jB9M1rQo0u8kR7H7u2TQqGYhJZ2y0kVL+XfqMoRhxlE="
+          ];
         }
       ];
     };

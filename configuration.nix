@@ -3,6 +3,11 @@
 {
   imports = [ ];
 
+  # ── Noctalia Shell (nixos module — provides systemd service) ─────────────────
+  # Note: systemd startup is deprecated per noctalia docs, but this is the working
+  # system-level integration. Noctalia starts via graphical-session.target.
+  services.noctalia-shell.enable = true;
+
   # ── Host info ──────────────────────────────────────────────────────────────
   networking.hostName = "p1-gen3";
 
@@ -98,7 +103,13 @@
   security.polkit.enable = true;
 
   # ── Fonts ───────────────────────────────────────────────────────────────────
-  fonts.packages = with pkgs; [ ];
+  fonts.packages = with pkgs; [
+    fontconfig
+    LiberationFonts
+    noto-fonts
+    noto-fonts-extra
+    (hack-font.override { otbFeatures = { }; })
+  ];
 
   # ── Locale ──────────────────────────────────────────────────────────────────
   i18n.defaultLocale = "en_GB.UTF-8";
