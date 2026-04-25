@@ -1,8 +1,8 @@
 { inputs, pkgs, lib, config, ... }:
 
 {
-  home.username = "jj";
-  home.homeDirectory = "/home/jj";
+  home.username = "foyez";
+  home.homeDirectory = "/home/foyez";
 
   home.packages = with pkgs; [
     fish
@@ -35,4 +35,9 @@
   };
 
   home.stateVersion = "25.05";
+
+  # Manage niri config
+  home.file.".config/niri/config.kdl" = {
+    source = ./niri/config.kdl;
+  };
 }

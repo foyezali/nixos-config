@@ -7,9 +7,9 @@
   networking.hostName = "p1-gen3";
 
   # ── User ───────────────────────────────────────────────────────────────────
-  users.users.jj = {
+  users.users.foyez = {
     isNormalUser = true;
-    description = "jj";
+    description = "foyez";
     extraGroups = [
       "wheel"
       "video"
@@ -59,11 +59,11 @@
     settings = {
       initial_session = {
         command = "${pkgs.niri}/bin/niri";
-        user = "jj";
+        user = "foyez";
       };
       default_session = {
         command = "${pkgs.niri}/bin/niri";
-        user = "jj";
+        user = "foyez";
       };
     };
   };

@@ -19,7 +19,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.jj = import ./home;
+          home-manager.users.foyez = import ./home;
           home-manager.extraSpecialArgs = { inherit inputs; };
           nixpkgs.config.allowUnfree = true;
         }
