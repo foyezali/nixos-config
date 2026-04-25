@@ -11,26 +11,15 @@ window-rule {
     spawn-at-workspace 1
 }
 
-// ── Layout ─────────────────────────────────────────────────────────────────────
-layout {
-    spacing 10
-
-    floating window {
-        dimensions 1152 648
-        position center
-    }
-}
-
 // ── Input ─────────────────────────────────────────────────────────────────────
-focus-under-mouse false
-warp cursor-on-focus true
-
 input {
     keyboard {
         xkb {
             options "caps:escape,compose:menu,numlock:on"
         }
     }
+    // Disable focus-follows-mouse (keyboard-driven workflow)
+    focus-follows-mouse false
 }
 
 input {
@@ -38,6 +27,29 @@ input {
         tap
         disable-while-typing
     }
+}
+
+input {
+    mouse {
+        // Warp cursor to focused window center
+        warp-mouse-to-focus
+    }
+}
+
+// ── Layout ─────────────────────────────────────────────────────────────────────
+layout {
+    gaps 16
+
+    // Cursor settings inside layout
+    cursor {
+        hide-when-typing true
+        cursor-active-color "#cdd6f4"
+        cursor-inactive-color "#cba6f7"
+    }
+
+    // Floating window default size for new floating windows
+    floating-cell-min-size 640 480
+    floating-cell-max-size 1920 1080
 }
 
 // ── Bindings ──────────────────────────────────────────────────────────────────
@@ -105,17 +117,6 @@ window-rule {
     match app-id="nm-connection-editor"
     open-floating true
 }
-
-// ── Looks ─────────────────────────────────────────────────────────────────────
-cursor {
-    hide-when-typing true
-    active-color "#cdd6f4"
-    inactive-color "#cba6f7"
-}
-
-// ── Misc ───────────────────────────────────────────────────────────────────────
-resize-area 32
-show-hidden-in-active-workspace true
 
 // ── Output ─────────────────────────────────────────────────────────────────────
 output "eDP-1" {
