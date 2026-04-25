@@ -1,4 +1,5 @@
 // Minimal niri config — ThinkPad P1 Gen 3
+// Niri docs: https://niri-wm.github.io/niri/
 
 input {
     keyboard {
@@ -8,7 +9,6 @@ input {
     }
     touchpad {
         tap
-        dwt
     }
 }
 
