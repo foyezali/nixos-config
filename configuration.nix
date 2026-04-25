@@ -24,10 +24,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # ── Filesystems ─────────────────────────────────────────────────────────────
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/A12C-8640";
-    fsType = "vfat";
-  };
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/453ef787-4e32-42f5-bb9f-3570531f57dc";
     fsType = "ext4";
@@ -43,9 +39,6 @@
   # ── GPU — Intel only, no NVIDIA ─────────────────────────────────────────────
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "intel" ];
-
-  # ── Niri ──────────────────────────────────────────────────────────────────
-  programs.niri.enable = true;
 
   # ── Software renderer — required for ThinkPad P1 NVIDIA Optimus ─────────────
   environment.sessionVariables = {
@@ -67,12 +60,8 @@
     };
   };
 
-  # ── D-Bus ─────────────────────────────────────────────────────────────────
-  services.dbus.enable = true;
-
   # ── Fonts ──────────────────────────────────────────────────────────────────
   fonts.packages = with pkgs; [
-    fontconfig
     noto-fonts
   ];
 
@@ -85,7 +74,6 @@
     git
     fish
     alacritty
-    wofi
   ];
 
   # ── Sound ──────────────────────────────────────────────────────────────────
@@ -94,9 +82,9 @@
   # ── Network ─────────────────────────────────────────────────────────────────
   networking.networkmanager.enable = true;
 
-  # ── Nix ────────────────────────────────────────────────────────────────────
+  # ── Nix ───────────────────────────────────────────────────────────────────
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # ── System state ────────────────────────────────────────────────────────────
+  # ── System state ───────────────────────────────────────────────────────────
   system.stateVersion = "25.05";
 }

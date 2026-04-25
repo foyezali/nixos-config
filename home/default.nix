@@ -14,7 +14,6 @@
     fzf
     zoxide
     neovim
-    alacritty
     fastfetch
   ];
 
@@ -35,9 +34,4 @@
   };
 
   home.stateVersion = "25.05";
-
-  # Manage niri config
-  home.file.".config/niri/config.kdl" = {
-    source = ./niri/config.kdl;
-  };
 }
