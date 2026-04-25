@@ -106,7 +106,6 @@
   fonts.packages = with pkgs; [
     fontconfig
     noto-fonts
-    noto-fonts-extra
   ];
 
   # ── Locale ──────────────────────────────────────────────────────────────────
