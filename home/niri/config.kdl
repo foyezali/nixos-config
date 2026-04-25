@@ -1,45 +1,35 @@
-// Niri config — edit this file to customize
-// Docs: https://github.com/YaLTeR/niri/blob/main/docs/user/config.md
-
-// ── Startup ───────────────────────────────────────────────────────────────────
-
-spawn-at-startup "fish"
+// Niri config — ThinkPad P1 Gen 3
+// Docs: https://niri-wm.github.io/niri/Configuration:-Introduction
 
 // ── Workspaces ────────────────────────────────────────────────────────────────
-
-// Default 6 workspaces
-workspaces {
-    rules {
-        // Float foot terminal for all workspaces
-        app-id "foot" {
-            spawn-at-workspace 1;
-        }
-    }
+// niri starts with 1 workspace by default — no explicit workspace declaration needed
+// App-specific workspace rules:
+window-rule {
+    match app-id="firefox"
+    spawn-at-workspace 0
+}
+window-rule {
+    match app-id="thunderbird"
+    spawn-at-workspace 1
 }
 
 // ── Layout ─────────────────────────────────────────────────────────────────────
-
 layout {
-    // Default spacing between windows (in pixels)
     spacing 10
 
-    // Default floating window dimensions
     floating window {
-        dimensions 60 60
+        // Reasonable floating window size in pixels (was: 60x60 which is microscopic)
+        dimensions 1152 648
         position center
     }
 }
 
 // ── Input ─────────────────────────────────────────────────────────────────────
-
-// Mouse focus (click to focus, move window with mouse)
+// Cursor follows focus but doesn't warp to every click
 focus-under-mouse false
-
-// Warp cursor when focusing windows
 warp cursor-on-focus true
 
 // ── Keyboard ──────────────────────────────────────────────────────────────────
-
 input {
     keyboard {
         xkb {
@@ -48,12 +38,16 @@ input {
     }
 }
 
+// ── Touchpad ──────────────────────────────────────────────────────────────────
+input {
+    touchpad {
+        tap
+        disable-while-typing
+    }
+}
+
 // ── Bindings ──────────────────────────────────────────────────────────────────
-
 binds {
-    // ── Modifier ──
-    let main = Mod4
-
     // ── Focus output (monitor) ──
     Mod+Left  { focus-output left; }
     Mod+Right { focus-output right; }
@@ -66,7 +60,7 @@ binds {
     Mod+Shift+Up    { move-window-to-output up; }
     Mod+Shift+Down  { move-window-to-output down; }
 
-    // ── Switch workspaces ──
+    // ── Switch workspaces (1-indexed internally, 0-indexed in config) ──
     Mod+1 { focus-workspace 0; }
     Mod+2 { focus-workspace 1; }
     Mod+3 { focus-workspace 2; }
@@ -82,37 +76,29 @@ binds {
     Mod+Shift+5 { move-window-to-workspace 4; }
     Mod+Shift+6 { move-window-to-workspace 5; }
 
-    // ── Floating window controls ──
-    Mod+Space { toggle-windowed-floating; }
-    Mod+F     { fullscreen; }
-    Mod+Shift+F { toggle-maximize-to-edges; }
+    // ── Floating / fullscreen ──
+    Mod+Space     { toggle-windowed-floating; }
+    Mod+F         { fullscreen; }
+    Mod+Shift+F   { toggle-maximize-to-edges; }
 
     // ── Close window ──
-    Mod+Q     { close; }
-    Mod+Alt+F4 { close; }
+    Mod+Q         { close; }
 
     // ── Spawn terminal ──
-    Mod+Return { spawn "alacritty"; }
+    Mod+Return    { spawn "alacritty"; }
 
-    // ── App launcher (dmenu replacement — fuzzel) ──
-    Mod+D { spawn "fuzzel"; }
+    // ── App launcher ──
+    Mod+D         { spawn "wofi"; }
 
-    // ── Screenshot ──
-    Mod+S { spawn "grim"; }
-    Mod+Shift+S { spawn "grim"; "-o"; "$MAIN_OUTPUT"; }
+    // ── Screenshot ( grim = full screen, grim -g = selection ) ──
+    Mod+S         { spawn "grim"; }
+    Mod+Shift+S   { spawn "grim"; "-g"; }
 
     // ── Lock screen ──
-    Mod+L { spawn "swaylock"; "-f"; }
-}
-
-input "type:touchpad" {
-    tap
-    disable-while-typing
+    Mod+L         { spawn "waylock"; "-f"; }
 }
 
 // ── Window rules ───────────────────────────────────────────────────────────────
-
-// Float certain windows
 window-rule {
     match app-id="pavucontrol"
     open-floating true
@@ -125,18 +111,8 @@ window-rule {
     match app-id="nm-connection-editor"
     open-floating true
 }
-window-rule {
-    match app-id="firefox"
-    spawn-at-workspace 0
-}
-window-rule {
-    match app-id="thunderbird"
-    spawn-at-workspace 1
-}
 
 // ── Looks ─────────────────────────────────────────────────────────────────────
-
-// Cursor
 cursor {
     hide-when-typing true
     active-color "#cdd6f4"
@@ -144,27 +120,12 @@ cursor {
 }
 
 // ── Misc ───────────────────────────────────────────────────────────────────────
-
-// Interactive move/resize (instead of arrow keys)
 resize-area 32
-
-// Show invisible windows in the active workspace
 show-hidden-in-active-workspace true
 
 // ── Output ─────────────────────────────────────────────────────────────────────
-
-// Your laptop screen — adjust resolution
+// ThinkPad P1 Gen 3 internal display
 output "eDP-1" {
     mode "1920x1080@60"
     position x=0 y=0
 }
-
-// External monitor (uncomment if needed)
-// output "HDMI-A-1" {
-//     mode "2560x1440@144"
-//     position x=1920 y=0
-//     scale 1.0
-// }
-
-// ── KDE Connect ────────────────────────────────────────────────────────────────
-// Run kdeconnect-indicator in your startup apps for phone integration
