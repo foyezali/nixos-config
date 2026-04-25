@@ -16,13 +16,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.noctalia-qs.follows = "noctalia-qs";
     };
-    nixpkgs-cachix = {
-      url = "github:nixos/nixpkgs-cachix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
-  outputs = { nixpkgs, home-manager, noctalia, nixpkgs-cachix, ... }@inputs: {
+  outputs = { nixpkgs, home-manager, noctalia, ... }@inputs: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -39,11 +35,9 @@
           # Noctalia binary cache — skip compiling noctalia from source
           nix.settings.substituters = [
             "https://noctalia.cachix.org"
-            "https://nixpkgs.cachix.org"
           ];
           nix.settings.trusted-public-keys = [
             "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-            "nixpkgs.cachix.org-1:jB9M1rQo0u8kR7H7u2TQqGYhJZ2y0kVL+XfqMoRhxlE="
           ];
         }
       ];
