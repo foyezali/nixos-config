@@ -55,8 +55,8 @@
   };
 
   # ── Disable GNOME/GDM ─────────────────────────────────────────────────────
-  services.xserver.displayManager.gdm.enable = false;
-  services.xserver.desktopManager.gnome.enable = false;
+  services.displayManager.gdm.enable = false;
+  services.desktopManager.gnome.enable = false;
 
   # ── Greetd + Niri ────────────────────────────────────────────────────────
   services.greetd = {
