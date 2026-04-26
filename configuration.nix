@@ -46,21 +46,28 @@
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "intel" ];
 
+  # ── Niri ──────────────────────────────────────────────────────────────────
+  programs.niri.enable = true;
+
   # ── Software renderer — required for NVIDIA Optimus on ThinkPad P1 ─────────
   environment.sessionVariables = {
     WLR_RENDERER = "sw";
   };
+
+  # ── Disable GNOME/GDM ─────────────────────────────────────────────────────
+  services.xserver.displayManager.gdm.enable = false;
+  services.xserver.desktopManager.gnome.enable = false;
 
   # ── Greetd + Niri ────────────────────────────────────────────────────────
   services.greetd = {
     enable = true;
     settings = {
       initial_session = {
-        command = "${pkgs.niri}/bin/niri";
+        command = "env WLR_RENDERER=sw ${pkgs.niri}/bin/niri";
         user = "foyez";
       };
       default_session = {
-        command = "${pkgs.niri}/bin/niri";
+        command = "env WLR_RENDERER=sw ${pkgs.niri}/bin/niri";
         user = "foyez";
       };
     };
