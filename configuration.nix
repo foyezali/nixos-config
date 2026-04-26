@@ -6,7 +6,7 @@
   # ── Host info ──────────────────────────────────────────────────────────────
   networking.hostName = "p1-gen3";
 
-  # ── User ───────────────────────────────────────────────────────────────────
+  # ── User ─────────────────────────────────────────────────────────────────
   users.users.foyez = {
     isNormalUser = true;
     description = "foyez";
@@ -19,14 +19,20 @@
     ];
   };
 
-  # ── Boot ───────────────────────────────────────────────────────────────────
+  # ── Boot ─────────────────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # ── Filesystems ─────────────────────────────────────────────────────────────
+  # ── Filesystems ───────────────────────────────────────────────────────────
+  # New install: root on 9a946700, home+swap on old partitions
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/453ef787-4e32-42f5-bb9f-3570531f57dc";
+    device = "/dev/disk/by-uuid/9a946700-8da8-4bbf-94f3-cdb04b42c331";
     fsType = "ext4";
+  };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/A12C-8640";
+    fsType = "vfat";
+    options = [ "fmask=0077" "dmask=0077" ];
   };
   fileSystems."/home" = {
     device = "/dev/disk/by-uuid/32023d65-15c6-4acb-836f-5ceae9802ae9";
@@ -36,16 +42,16 @@
     { device = "/dev/disk/by-uuid/3b9c060f-4660-460b-a152-8b20f7ae311c"; }
   ];
 
-  # ── GPU — Intel only, no NVIDIA ─────────────────────────────────────────────
+  # ── GPU — Intel only ──────────────────────────────────────────────────────
   services.xserver.enable = true;
   services.xserver.videoDrivers = [ "intel" ];
 
-  # ── Software renderer — required for ThinkPad P1 NVIDIA Optimus ─────────────
+  # ── Software renderer — required for NVIDIA Optimus on ThinkPad P1 ─────────
   environment.sessionVariables = {
     WLR_RENDERER = "sw";
   };
 
-  # ── Greetd + Niri ─────────────────────────────────────────────────────────
+  # ── Greetd + Niri ────────────────────────────────────────────────────────
   services.greetd = {
     enable = true;
     settings = {
@@ -60,31 +66,31 @@
     };
   };
 
-  # ── Fonts ──────────────────────────────────────────────────────────────────
+  # ── Fonts ────────────────────────────────────────────────────────────────
   fonts.packages = with pkgs; [
     noto-fonts
   ];
 
-  # ── Locale ─────────────────────────────────────────────────────────────────
+  # ── Locale ────────────────────────────────────────────────────────────────
   i18n.defaultLocale = "en_GB.UTF-8";
   time.timeZone = "Europe/London";
 
-  # ── Basic utils ────────────────────────────────────────────────────────────
+  # ── Basic utils ──────────────────────────────────────────────────────────
   environment.systemPackages = with pkgs; [
     git
     fish
     alacritty
   ];
 
-  # ── Sound ──────────────────────────────────────────────────────────────────
+  # ── Sound ────────────────────────────────────────────────────────────────
   services.pipewire.enable = true;
 
-  # ── Network ─────────────────────────────────────────────────────────────────
+  # ── Network ──────────────────────────────────────────────────────────────
   networking.networkmanager.enable = true;
 
-  # ── Nix ───────────────────────────────────────────────────────────────────
+  # ── Nix ─────────────────────────────────────────────────────────────────
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # ── System state ───────────────────────────────────────────────────────────
-  system.stateVersion = "25.05";
+  # ── System state ────────────────────────────────────────────────────────
+  system.stateVersion = "25.11";
 }
