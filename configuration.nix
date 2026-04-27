@@ -1,22 +1,16 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 
 {
-  # Import hardware config
   imports = [ ./hardware-configuration.nix ];
 
-  # Bootloader — systemd-boot on EFI
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos";
-
-  # Networking
   networking.networkmanager.enable = true;
 
-  # Time zone
   time.timeZone = "Europe/London";
 
-  # Internationalisation
   i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_GB.UTF-8";
@@ -30,24 +24,15 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
-  # ============================================
-  # Niri Wayland Compositor
-  # ============================================
-  # NixOS-level module handles: systemd service, polkit, keyring,
-  # xdg-desktop-portal, and installing the niri package.
-  # Actual config (keybinds, outputs, etc.) is in home-manager.nix
+  # Niri Wayland compositor — handles login, window management, everything
   programs.niri.enable = true;
 
-  # ============================================
-  # Required services for Noctalia
-  # ============================================
+  # Required for Noctalia
   hardware.bluetooth.enable = true;
   services.power-profiles-daemon.enable = true;
   services.upower.enable = true;
 
-  # ============================================
-  # Audio — PipeWire
-  # ============================================
+  # Audio
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -57,98 +42,42 @@
     pulse.enable = true;
   };
 
-  # ============================================
   # Printing
-  # ============================================
   services.printing.enable = true;
 
-  # ============================================
   # Tailscale
-  # ============================================
   services.tailscale.enable = true;
 
-  # ============================================
-  # Logitech wireless
-  # ============================================
+  # Logitech
   hardware.logitech.wireless.enable = true;
 
-  # ============================================
-  # User account
-  # ============================================
+  # User
   users.users.foyez = {
     isNormalUser = true;
     description = "foyez";
     extraGroups = [ "networkmanager" "wheel" ];
   };
 
-  # ============================================
-  # System-wide packages
-  # ============================================
+  # All packages
   environment.systemPackages = with pkgs; [
-    # Shells
-    fish
-    starship
-
-    # Utils
-    eza
-    bat
-    fd
-    ripgrep
-    fzf
-    zoxide
-    fastfetch
-
-    # Editors
-    neovim
-    vscode
-    jetbrains.idea
-    jetbrains.pycharm
-
-    # Browsers
-    librewolf
-    floorp-bin
-
-    # Communication
-    element-desktop
-    protonmail-desktop
-
-    # VPN
-    tailscale
-    protonvpn-gui
-
-    # Passwords
-    bitwarden-desktop
-    bitwarden-cli
-    proton-pass
-
-    # Cloud
-    nextcloud-client
-    immich
-    immich-cli
-
-    # Media
-    vlc
-    mpv
-
-    # GNOME Extensions (as CLI tools)
+    fish starship eza bat fd ripgrep fzf zoxide fastfetch
+    neovim vscode jetbrains.idea jetbrains.pycharm
+    librewolf floorp-bin
+    element-desktop protonmail-desktop
+    tailscale protonvpn-gui
+    bitwarden-desktop bitwarden-cli proton-pass
+    nextcloud-client immich immich-cli
+    vlc mpv
     gnomeExtensions.gsconnect
     gnomeExtensions.tailscale-qs
     gnomeExtensions.tailscale-status
-
-    # System
-    solaar
-    git
-    gh
+    solaar git gh
+    alacritty wofi mako fuzzel
   ];
 
-  # ============================================
-  # Allow unfree packages
-  # ============================================
   nixpkgs.config.allowUnfree = true;
 
-  # ============================================
-  # Binary caches — skip compiling niri/noctalia
-  # ============================================
+  # Binary caches
   nix.settings.substituters = [
     "https://niri.cachix.org"
     "https://noctalia.cachix.org"
@@ -158,8 +87,5 @@
     "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
   ];
 
-  # ============================================
-  # Version
-  # ============================================
   system.stateVersion = "25.11";
 }

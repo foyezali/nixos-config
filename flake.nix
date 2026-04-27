@@ -24,22 +24,15 @@
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
-
       modules = [
         ./configuration.nix
         ./hardware-configuration.nix
-
-        # Flake inputs as modules
         home-manager.nixosModules.home-manager
         niri.nixosModules.niri
-
-        # home-manager for user config
         ({ pkgs, ... }: {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.foyez = import ./home {
-            inherit inputs pkgs;
-          };
+          home-manager.users.foyez = import ./home { inherit inputs pkgs; };
           home-manager.extraSpecialArgs = { inherit inputs; };
         })
       ];
