@@ -13,18 +13,18 @@
 
       binds = {
         "Mod+Return".action.spawn = [ "alacritty" ];
-        "Mod+Q".action.close-window = { };
+        "Mod+Q".action.close-window = [ ];
         "Mod+D".action.spawn = [ "wofi" ];
-        "Mod+Space".action.toggle-window-floating = { };
-        "Mod+F".action.fullscreen-window = { };
-        "Mod+Left".action.focus-column-left = { };
-        "Mod+Right".action.focus-column-right = { };
-        "Mod+Down".action.focus-window-down = { };
-        "Mod+Up".action.focus-window-up = { };
-        "Mod+Shift+Left".action.move-window-left = { };
-        "Mod+Shift+Right".action.move-window-right = { };
-        "Mod+Shift+Down".action.move-window-down = { };
-        "Mod+Shift+Up".action.move-window-up = { };
+        "Mod+Space".action.toggle-window-floating = [ ];
+        "Mod+F".action.fullscreen-window = [ ];
+        "Mod+Left".action.focus-column-left = [ ];
+        "Mod+Right".action.focus-column-right = [ ];
+        "Mod+Down".action.focus-window-down = [ ];
+        "Mod+Up".action.focus-window-up = [ ];
+        "Mod+Shift+Left".action.move-window-left = [ ];
+        "Mod+Shift+Right".action.move-window-right = [ ];
+        "Mod+Shift+Down".action.move-window-down = [ ];
+        "Mod+Shift+Up".action.move-window-up = [ ];
         "Mod+Shift+R".action.spawn = [ "systemctl" "--user" "restart" "niri" ];
       };
 
