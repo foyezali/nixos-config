@@ -28,7 +28,7 @@
         "Mod+Shift+R" = { spawn = [ "systemctl" "--user" "restart" "niri" ]; };
       };
 
-      input.keyboard.xkb.options = [ "caps:escape" ];
+      input.keyboard.xkb.options = "caps:escape";
       input.touchpad.tap = true;
 
       environment = {
