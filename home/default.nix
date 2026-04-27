@@ -8,7 +8,6 @@
 
   # Niri config
   programs.niri = {
-    enable = true;
     settings = {
       layout.gaps = 16;
 
