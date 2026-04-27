@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -25,7 +25,10 @@
   };
 
   # Niri Wayland compositor — handles login, window management, everything
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    package = inputs.niri.packages.${pkgs.system}.niri-unstable;
+  };
 
   # Required for Noctalia
   hardware.bluetooth.enable = true;

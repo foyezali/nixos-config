@@ -8,6 +8,7 @@
 
   # Niri config
   programs.niri = {
+    package = inputs.niri.packages.${pkgs.system}.niri-unstable;
     settings = {
       layout.gaps = 16;
 
