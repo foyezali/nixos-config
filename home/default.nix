@@ -40,8 +40,8 @@
       };
     };
 
-    spawn-at-startup = [
-      { command = [ "noctalia-shell" ]; }
+    settings.spawn-at-startup = [
+      { argv = [ "noctalia-shell" ]; }
     ];
   };
 
