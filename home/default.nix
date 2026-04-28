@@ -39,14 +39,15 @@
         "XDG_SESSION_TYPE" = "wayland";
         "XDG_SESSION_DESKTOP" = "noctalia";
       };
-    };
 
-    settings.spawn-at-startup = [
-      { argv = [ "noctalia-shell" ]; }
-    ];
+      # Spawn Noctalia shell when niri starts — absolute path from home-manager package
+      spawn-at-startup = [
+        { argv = [ "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell" ]; }
+      ];
+    };
   };
 
-  # Noctalia shell
+  # Noctalia shell — desktop shell UI layer on top of niri compositor
   programs.noctalia-shell = {
     enable = true;
     settings = {

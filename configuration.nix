@@ -24,10 +24,22 @@
     LC_TIME = "en_GB.UTF-8";
   };
 
-  # Niri Wayland compositor — handles login, window management, everything
+  # Niri Wayland compositor — provides the niri wayland session for greetd
   programs.niri = {
     enable = true;
     package = inputs.niri.packages.${pkgs.system}.niri-unstable;
+  };
+
+  # Greetd display manager — presents the login screen and starts the wayland session
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        user = "foyez";
+        command = "${inputs.niri.packages.${pkgs.system}.niri-unstable}/bin/niri";
+        type = "wayland";
+      };
+    };
   };
 
   # Required for Noctalia
