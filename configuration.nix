@@ -30,13 +30,13 @@
     package = inputs.niri.packages.${pkgs.system}.niri-unstable;
   };
 
-  # Greetd display manager — presents the login screen and starts the wayland session
+  # Greetd display manager — presents a login screen and starts the wayland session
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
         user = "foyez";
-        command = "${inputs.niri.packages.${pkgs.system}.niri-unstable}/bin/niri";
+        command = "${inputs.niri.packages.${pkgs.system}.niri-unstable}/bin/niri-session";
         type = "wayland";
       };
     };
