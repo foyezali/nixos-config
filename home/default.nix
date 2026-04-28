@@ -22,8 +22,8 @@
         "Mod+Right".action.focus-column-right = [ ];
         "Mod+Down".action.focus-window-down = [ ];
         "Mod+Up".action.focus-window-up = [ ];
-        "Mod+Shift+Left".action.move-window-left = [ ];
-        "Mod+Shift+Right".action.move-window-right = [ ];
+        "Mod+Shift+Left".action.move-column-left = [ ];
+        "Mod+Shift+Right".action.move-column-right = [ ];
         "Mod+Shift+Down".action.move-window-down = [ ];
         "Mod+Shift+Up".action.move-window-up = [ ];
         "Mod+Shift+R".action.spawn = [ "systemctl" "--user" "restart" "niri" ];
