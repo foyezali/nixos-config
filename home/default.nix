@@ -49,7 +49,6 @@
 
   # Force overwrite existing config files
   xdg.configFile."niri/config.kdl".force = true;
-  xdg.configFile."fish/config.fish".force = true;
 
   # Noctalia shell — desktop shell UI layer on top of niri compositor
   programs.noctalia-shell = {
