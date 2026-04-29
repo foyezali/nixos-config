@@ -48,7 +48,7 @@
   };
 
   # Force overwrite existing config files
-  home.activation = config.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.rmOldConfigs = ''
     rm -f ~/.config/niri/config.kdl ~/.config/fish/config.fish
   '';
 
