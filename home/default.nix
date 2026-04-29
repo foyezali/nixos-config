@@ -33,8 +33,8 @@
       input.keyboard.xkb.options = "caps:escape";
       input.touchpad.tap = true;
 
-      # 2.5x scaling for HiDPI 4K display
-      output "eDP-1".scale = 2.5;
+      # 3x scaling for HiDPI 4K display
+      outputs = { "eDP-1" = { scale = 3.0; }; };
 
       environment = {
         "NIXOS_OZONE_WL" = "1";
