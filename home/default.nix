@@ -40,17 +40,21 @@
         "XDG_SESSION_DESKTOP" = "noctalia";
       };
 
-      # Spawn Noctalia shell when niri starts — absolute path from home-manager package
       spawn-at-startup = [
         { argv = [ "${inputs.noctalia.packages.${pkgs.system}.default}/bin/noctalia-shell" ]; }
       ];
     };
   };
 
-  # Force overwrite existing config files
-  xdg.configFile."niri/config.kdl".force = true;
+  # Remove old niri config so home-manager can write the new one
+  home.activation = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    rm -f ~/.config/niri/config.kdl
+  '';
 
-  # Noctalia shell — desktop shell UI layer on top of niri compositor
+  # Force overwrite fish config
+  xdg.configFile."fish/config.fish".force = true;
+
+  # Noctalia shell
   programs.noctalia-shell = {
     enable = true;
     settings = {
@@ -87,7 +91,6 @@
     alias ll 'eza -l'
     alias la 'eza -la'
   '';
-  xdg.configFile."fish/config.fish".force = true;
   programs.starship.enable = true;
   programs.starship.settings.add_newline = false;
 
