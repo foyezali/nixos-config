@@ -42,6 +42,9 @@
     };
   };
 
+  # Ensure display manager is active (required for greetd to show login screen)
+  services.displayManager.enable = true;
+
   # Required for Noctalia
   hardware.bluetooth.enable = true;
   services.power-profiles-daemon.enable = true;
@@ -79,7 +82,7 @@
     neovim vscode jetbrains.idea jetbrains.pycharm
     librewolf floorp-bin
     element-desktop protonmail-desktop
-    tailscale protonvpn-gui
+    tailscale proton-vpn-gui
     bitwarden-desktop bitwarden-cli proton-pass
     nextcloud-client immich immich-cli
     vlc mpv
@@ -88,6 +91,10 @@
     gnomeExtensions.tailscale-status
     solaar git gh
     alacritty wofi mako fuzzel
+    grim slurp swappy
+    thunar file-roller
+    tmux jq unzip zip
+    libnotify mpd mpc
   ];
 
   nixpkgs.config.allowUnfree = true;

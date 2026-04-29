@@ -29,8 +29,12 @@
         "Mod+Shift+R".action.spawn = [ "systemctl" "--user" "restart" "niri" ];
       };
 
+      input.keyboard.xkb.layout = "gb";
       input.keyboard.xkb.options = "caps:escape";
       input.touchpad.tap = true;
+
+      # 2.5x scaling for HiDPI 4K display
+      output "eDP-1".scale = 2.5;
 
       environment = {
         "NIXOS_OZONE_WL" = "1";
