@@ -46,11 +46,6 @@
     };
   };
 
-  # Remove old niri config so home-manager can write the new one
-  home.activation = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
-    rm -f ~/.config/niri/config.kdl
-  '';
-
   # Force overwrite fish config
   xdg.configFile."fish/config.fish".force = true;
 
