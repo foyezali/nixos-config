@@ -47,6 +47,11 @@
     };
   };
 
+  # Force overwrite existing config files
+  home.activation = config.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    rm -f ~/.config/niri/config.kdl ~/.config/fish/config.fish
+  '';
+
   # Noctalia shell — desktop shell UI layer on top of niri compositor
   programs.noctalia-shell = {
     enable = true;
@@ -84,6 +89,7 @@
     alias ll 'eza -l'
     alias la 'eza -la'
   '';
+  xdg.configFile."fish/config.fish".force = true;
   programs.starship.enable = true;
   programs.starship.settings.add_newline = false;
 
