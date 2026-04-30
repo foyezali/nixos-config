@@ -43,8 +43,11 @@
       input.keyboard.xkb.model = "thinkpad";
       input.touchpad.tap = true;
 
-      # 3x scaling for HiDPI 4K display
-      outputs = { "eDP-1" = { scale = 3.0; }; };
+      # 2.5x scaling for HiDPI 4K display, 1.5x on HDMI
+      outputs = {
+        "eDP-1" = { scale = 2.5; };
+        "HDMI-A-1" = { scale = 1.5; };
+      };
 
       environment = {
         "NIXOS_OZONE_WL" = "1";
@@ -68,7 +71,8 @@
     enable = true;
     settings = {
       bar = {
-        density = "compact";
+        density = "comfortable";
+        height = 48;
         position = "top";
         showCapsule = false;
         widgets = {
