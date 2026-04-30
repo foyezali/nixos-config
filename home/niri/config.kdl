@@ -26,6 +26,8 @@ binds {
     Mod+Right     { focus-column-right; }
     Mod+Down      { focus-window-down; }
     Mod+Up        { focus-window-up; }
+    Mod+Shift+Down { move-window-to-workspace-down; }
+    Mod+Shift+Up   { move-window-to-workspace-up; }
 }
 
 output "eDP-1" {
