@@ -43,10 +43,14 @@
       input.keyboard.xkb.model = "thinkpad";
       input.touchpad.tap = true;
 
-      # 2.5x scaling for HiDPI 4K display, 1.5x on HDMI
+      # 2.5x scaling for HiDPI 4K display, 1.5x on HDMI (1080p, above laptop screen)
       outputs = {
         "eDP-1" = { scale = 2.5; };
-        "HDMI-A-1" = { scale = 1.5; };
+        "HDMI-A-1" = {
+          scale = 1.5;
+          x = 0;
+          y = -1080;
+        };
       };
 
       environment = {
