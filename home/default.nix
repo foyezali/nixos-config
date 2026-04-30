@@ -28,6 +28,22 @@
         "Mod+Shift+Up".action.move-window-up = [ ];
         "Mod+Shift+R".action.spawn = [ "systemctl" "--user" "restart" "niri" ];
 
+        # Workspace navigation (i3-style)
+        "Mod+1".action.switch-workspace = [ "0" ];
+        "Mod+2".action.switch-workspace = [ "1" ];
+        "Mod+3".action.switch-workspace = [ "2" ];
+        "Mod+4".action.switch-workspace = [ "3" ];
+        "Mod+5".action.switch-workspace = [ "4" ];
+        "Mod+Shift+1".action.move-window-workspace = [ "0" ];
+        "Mod+Shift+2".action.move-window-workspace = [ "1" ];
+        "Mod+Shift+3".action.move-window-workspace = [ "2" ];
+        "Mod+Shift+4".action.move-window-workspace = [ "3" ];
+        "Mod+Shift+5".action.move-window-workspace = [ "4" ];
+
+        # Screenshot
+        "Mod+P".action.spawn = [ "grim" ];
+        "Mod+Shift+P".action.spawn = [ "grim" "-g" "$(slurp)" ];
+
         # Volume controls via noctalia IPC
         "Mod+F1".action.spawn = [ "noctalia-shell" "-c" "volume muteOutput" ];
         "Mod+F2".action.spawn = [ "noctalia-shell" "-c" "volume decrease" ];
