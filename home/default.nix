@@ -27,10 +27,20 @@
         "Mod+Shift+Down".action.move-window-down = [ ];
         "Mod+Shift+Up".action.move-window-up = [ ];
         "Mod+Shift+R".action.spawn = [ "systemctl" "--user" "restart" "niri" ];
+
+        # Volume controls via noctalia IPC
+        "Mod+F1".action.spawn = [ "noctalia-shell" "-c" "volume muteOutput" ];
+        "Mod+F2".action.spawn = [ "noctalia-shell" "-c" "volume decrease" ];
+        "Mod+F3".action.spawn = [ "noctalia-shell" "-c" "volume increase" ];
+
+        # Brightness controls via noctalia IPC
+        "Mod+F5".action.spawn = [ "noctalia-shell" "-c" "brightness decrease" ];
+        "Mod+F6".action.spawn = [ "noctalia-shell" "-c" "brightness increase" ];
       };
 
       input.keyboard.xkb.layout = "gb";
       input.keyboard.xkb.options = "caps:escape";
+      input.keyboard.xkb.model = "thinkpad";
       input.touchpad.tap = true;
 
       # 3x scaling for HiDPI 4K display
