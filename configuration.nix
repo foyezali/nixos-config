@@ -82,7 +82,7 @@
     neovim vscode jetbrains.idea jetbrains.pycharm
     librewolf floorp-bin
     element-desktop protonmail-desktop
-    tailscale proton-vpn-gui
+    tailscale proton-vpn
     bitwarden-desktop bitwarden-cli proton-pass
     nextcloud-client immich immich-cli
     vlc mpv
